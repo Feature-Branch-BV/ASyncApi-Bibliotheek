@@ -1,0 +1,122 @@
+asyncapi: 2.5.0
+info:
+  title: Leden View Service
+  version: '1.0.0'
+  description: "Service voor de weergave van het ledenbestand."
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+
+servers:
+  local:
+    url: kafka://localhost:9093
+    protocol: kafka
+
+defaultContentType: application/json
+
+channels:
+  event.leden:
+    subscribe:
+      bindings:
+        kafka:
+          groupId: ledenviewservice
+      operationId: lidAangemeld
+      message:
+        oneOf:
+          - $ref: '#/components/messages/lidAangemeld'
+          - $ref: '#/components/messages/lidGewijzigd'
+          - $ref: '#/components/messages/lidVerwijderd'
+
+components:
+  messages:
+    lidAangemeld:
+      summary: Informeer over het lid dat is aangemeld
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/lidAangemeldPayload'
+
+    lidGewijzigd:
+      summary: Informeer over het gewijzigde lid
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/lidGewijzigdPayload'
+
+    lidVerwijderd:
+      summary: Informeer over welk lid verwijderd is
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/lidVerwijderdPayload'
+
+  schemas:
+    lidAangemeldPayload:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: 'Unieke identificatie van het lid te registreren'
+        naam:
+          type: string
+          description: 'De naam van het lid'
+        email:
+          type: string
+          format: email
+          description: 'Email adres van het lid'
+        telefoonnummer:
+          type: string
+          description: 'Telefoonnummer van het lid'
+        adres:
+          type: string
+          description: Adres van het lid
+        geboortedatum:
+          type: string
+          format: date
+          description: 'Geboortedatum van het lid'
+        sentAt:
+          $ref: '#/components/schemas/sentAt'
+      required:
+        - id
+        - naam
+        - email
+        - telefoonnummer
+        - adres
+        - geboortedatum
+        - sentAt
+    lidGewijzigdPayload:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: 'Unieke identificatie van het lid te wijzigen'
+        email:
+          type: string
+          format: email
+          description: 'Email adres van het lid'
+        telefoonnummer:
+          type: string
+          description: 'Telefoonnummer van het lid'
+        adres:
+          type: string
+          description: 'Adres van het lid'
+      required:
+        - email
+        - telefoonnummer
+        - adres
+        - sentAt
+
+    lidVerwijderdPayload:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: 'Unieke identificatie van het lid te verwijderen.'
+      required:
+        - id
+        - sentAt
+
+    sentAt:
+      type: string
+      format: date-time
+      description: Datum en tijd dat bericht gestuurd is.
