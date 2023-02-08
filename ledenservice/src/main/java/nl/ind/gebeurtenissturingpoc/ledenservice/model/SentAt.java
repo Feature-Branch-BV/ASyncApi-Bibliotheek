@@ -11,35 +11,22 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class LidVerwijderdPayload {
+public class SentAt {
     
-    private @Valid java.util.UUID id;
-    
-    private @Valid SentAt sentAt;
+    private @Valid java.time.OffsetDateTime sentAt;
     
 
     
 
     /**
-     * Unieke identificatie van het lid te verwijderen.
+     * Datum en tijd dat bericht gestuurd is.
      */
-    @JsonProperty("id")@NotNull
-    public java.util.UUID getId() {
-        return id;
-    }
-
-    public void setId(java.util.UUID id) {
-        this.id = id;
-    }
-    
-
-    
     @JsonProperty("sentAt")@NotNull
-    public SentAt getSentAt() {
+    public java.time.OffsetDateTime getSentAt() {
         return sentAt;
     }
 
-    public void setSentAt(SentAt sentAt) {
+    public void setSentAt(java.time.OffsetDateTime sentAt) {
         this.sentAt = sentAt;
     }
     
@@ -51,22 +38,20 @@ public class LidVerwijderdPayload {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        LidVerwijderdPayload lidVerwijderdPayload = (LidVerwijderdPayload) o;
+        SentAt sentAt = (SentAt) o;
         return 
-            Objects.equals(this.id, lidVerwijderdPayload.id) &&
-            Objects.equals(this.sentAt, lidVerwijderdPayload.sentAt);
+            Objects.equals(this.sentAt, sentAt.sentAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, sentAt);
+        return Objects.hash(sentAt);
     }
 
     @Override
     public String toString() {
-        return "class LidVerwijderdPayload {\n" +
+        return "class SentAt {\n" +
         
-                "    id: " + toIndentedString(id) + "\n" +
                 "    sentAt: " + toIndentedString(sentAt) + "\n" +
                 "}";
     }

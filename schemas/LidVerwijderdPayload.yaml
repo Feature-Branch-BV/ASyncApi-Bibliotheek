@@ -1,0 +1,15 @@
+schemas:
+  LidVerwijderdPayload:
+    type: object
+    $id: LidVerwijderdPayload
+    properties:
+      id:
+        type: string
+        format: uuid
+        description: 'Unieke identificatie van het lid te verwijderen.'
+      sentAt:
+        type: object
+        $ref: './SentAt.yaml#/schemas/SentAt'
+    required:
+      - id
+      - sentAt

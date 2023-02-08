@@ -15,25 +15,44 @@ public class LidGewijzigdPayload {
     
     private @Valid java.util.UUID id;
     
+    private @Valid String naam;
+    
     private @Valid String email;
     
     private @Valid String telefoonnummer;
     
     private @Valid String adres;
     
+    private @Valid java.time.LocalDate geboortedatum;
+    
+    private @Valid SentAt sentAt;
+    
 
     
 
     /**
-     * Unieke identificatie van het lid te wijzigen
+     * Unieke identificatie van het lid te registreren
      */
-    @JsonProperty("id")
+    @JsonProperty("id")@NotNull
     public java.util.UUID getId() {
         return id;
     }
 
     public void setId(java.util.UUID id) {
         this.id = id;
+    }
+    
+
+    /**
+     * De naam van het lid
+     */
+    @JsonProperty("naam")@NotNull
+    public String getNaam() {
+        return naam;
+    }
+
+    public void setNaam(String naam) {
+        this.naam = naam;
     }
     
 
@@ -75,6 +94,30 @@ public class LidGewijzigdPayload {
         this.adres = adres;
     }
     
+
+    /**
+     * Geboortedatum van het lid
+     */
+    @JsonProperty("geboortedatum")@NotNull
+    public java.time.LocalDate getGeboortedatum() {
+        return geboortedatum;
+    }
+
+    public void setGeboortedatum(java.time.LocalDate geboortedatum) {
+        this.geboortedatum = geboortedatum;
+    }
+    
+
+    
+    @JsonProperty("sentAt")@NotNull
+    public SentAt getSentAt() {
+        return sentAt;
+    }
+
+    public void setSentAt(SentAt sentAt) {
+        this.sentAt = sentAt;
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -86,14 +129,17 @@ public class LidGewijzigdPayload {
         LidGewijzigdPayload lidGewijzigdPayload = (LidGewijzigdPayload) o;
         return 
             Objects.equals(this.id, lidGewijzigdPayload.id) &&
+            Objects.equals(this.naam, lidGewijzigdPayload.naam) &&
             Objects.equals(this.email, lidGewijzigdPayload.email) &&
             Objects.equals(this.telefoonnummer, lidGewijzigdPayload.telefoonnummer) &&
-            Objects.equals(this.adres, lidGewijzigdPayload.adres);
+            Objects.equals(this.adres, lidGewijzigdPayload.adres) &&
+            Objects.equals(this.geboortedatum, lidGewijzigdPayload.geboortedatum) &&
+            Objects.equals(this.sentAt, lidGewijzigdPayload.sentAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, telefoonnummer, adres);
+        return Objects.hash(id, naam, email, telefoonnummer, adres, geboortedatum, sentAt);
     }
 
     @Override
@@ -101,9 +147,12 @@ public class LidGewijzigdPayload {
         return "class LidGewijzigdPayload {\n" +
         
                 "    id: " + toIndentedString(id) + "\n" +
+                "    naam: " + toIndentedString(naam) + "\n" +
                 "    email: " + toIndentedString(email) + "\n" +
                 "    telefoonnummer: " + toIndentedString(telefoonnummer) + "\n" +
                 "    adres: " + toIndentedString(adres) + "\n" +
+                "    geboortedatum: " + toIndentedString(geboortedatum) + "\n" +
+                "    sentAt: " + toIndentedString(sentAt) + "\n" +
                 "}";
     }
 

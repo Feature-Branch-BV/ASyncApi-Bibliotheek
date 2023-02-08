@@ -25,7 +25,7 @@ public class LidAangemeldPayload {
     
     private @Valid java.time.LocalDate geboortedatum;
     
-    private @Valid java.time.OffsetDateTime sentAt;
+    private @Valid SentAt sentAt;
     
 
     
@@ -108,15 +108,13 @@ public class LidAangemeldPayload {
     }
     
 
-    /**
-     * Datum en tijd dat bericht gestuurd is.
-     */
+    
     @JsonProperty("sentAt")@NotNull
-    public java.time.OffsetDateTime getSentAt() {
+    public SentAt getSentAt() {
         return sentAt;
     }
 
-    public void setSentAt(java.time.OffsetDateTime sentAt) {
+    public void setSentAt(SentAt sentAt) {
         this.sentAt = sentAt;
     }
     

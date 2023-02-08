@@ -55,11 +55,11 @@ public class Config {
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "PLAINTEXT");props.put(JsonDeserializer.TYPE_MAPPINGS,
-        "lidAangemeldPayload:nl.ind.gebeurtenissturingpoc.ledenservice.model.LidAangemeldPayload," +
+        "LidAangemeldPayload:nl.ind.gebeurtenissturingpoc.ledenservice.model.LidAangemeldPayload," +
         
-        "lidGewijzigdPayload:nl.ind.gebeurtenissturingpoc.ledenservice.model.LidGewijzigdPayload," +
+        "LidGewijzigdPayload:nl.ind.gebeurtenissturingpoc.ledenservice.model.LidGewijzigdPayload," +
         
-        "lidVerwijderdPayload:nl.ind.gebeurtenissturingpoc.ledenservice.model.LidVerwijderdPayload"
+        "LidVerwijderdPayload:nl.ind.gebeurtenissturingpoc.ledenservice.model.LidVerwijderdPayload"
         );
         props.put(JsonDeserializer.TRUSTED_PACKAGES, "nl.ind.gebeurtenissturingpoc.ledenservice.model");
         return props;

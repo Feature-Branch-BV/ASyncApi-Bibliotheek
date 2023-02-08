@@ -1,4 +1,4 @@
-asyncapi: 2.5.0
+asyncapi: 2.4.0
 info:
   title: Leden Service
   version: '1.0.0'
@@ -11,8 +11,6 @@ servers:
   local:
     url: kafka://localhost:9093
     protocol: kafka
-
-defaultContentType: application/json
 
 channels:
   event.leden:
@@ -35,94 +33,29 @@ channels:
 components:
   messages:
     lidAangemeld:
+      messageId: "LidAangemeld"
       summary: Informeer over het lid dat is aangemeld
-      contentType: application/json
       payload:
-        $ref: '#/components/schemas/lidAangemeldPayload'
+        $ref: './schemas/LidAangemeldPayload.yaml#/schemas/LidAangemeldPayload'
 
     lidGewijzigd:
+      messageId: "LidGewijzigd"
       summary: Informeer over het gewijzigde lid
-      contentType: application/json
       payload:
-        $ref: '#/components/schemas/lidGewijzigdPayload'
+        $ref: './schemas/LidGewijzigdPayload.yaml#/schemas/LidGewijzigdPayload'
 
     lidVerwijderd:
+      messageId: "LidVerwijderd"
       summary: Informeer over welk lid verwijderd is
-      contentType: application/json
       payload:
-        $ref: '#/components/schemas/lidVerwijderdPayload'
+        $ref: './schemas/LidVerwijderdPayload.yaml#/schemas/LidVerwijderdPayload'
 
+# Met de huidige versie van de async-generator moet je het schema's element hebben anders
+# snapt hij niet dat hij type-bindings moet toevoegen in de config.
   schemas:
-    lidAangemeldPayload:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: 'Unieke identificatie van het lid te registreren'
-        naam:
-          type: string
-          description: 'De naam van het lid'
-        email:
-          type: string
-          format: email
-          description: 'Email adres van het lid'
-        telefoonnummer:
-          type: string
-          description: 'Telefoonnummer van het lid'
-        adres:
-          type: string
-          description: Adres van het lid
-        geboortedatum:
-          type: string
-          format: date
-          description: 'Geboortedatum van het lid'
-        sentAt:
-          $ref: '#/components/schemas/sentAt'
-      required:
-        - id
-        - naam
-        - email
-        - telefoonnummer
-        - adres
-        - geboortedatum
-        - sentAt
-
-    lidGewijzigdPayload:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: 'Unieke identificatie van het lid te wijzigen'
-        email:
-          type: string
-          format: email
-          description: 'Email adres van het lid'
-        telefoonnummer:
-          type: string
-          description: 'Telefoonnummer van het lid'
-        adres:
-          type: string
-          description: 'Adres van het lid'
-      required:
-        - email
-        - telefoonnummer
-        - adres
-        - sentAt
-
-    lidVerwijderdPayload:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: 'Unieke identificatie van het lid te verwijderen.'
-      required:
-        - id
-        - sentAt
-
-    sentAt:
-      type: string
-      format: date-time
-      description: Datum en tijd dat bericht gestuurd is.
+    lidAangemeld:
+      $ref: './schemas/LidAangemeldPayload.yaml#/schemas/LidAangemeldPayload'
+    lidGewijzigd:
+      $ref: './schemas/LidGewijzigdPayload.yaml#/schemas/LidGewijzigdPayload'
+    lidVerwijderd:
+      $ref: './schemas/LidVerwijderdPayload.yaml#/schemas/LidVerwijderdPayload'
