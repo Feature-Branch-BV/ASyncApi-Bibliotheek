@@ -5,7 +5,7 @@ schemas:
     properties:
       lid:
         type: object
-        $ref: './Lid.yaml#/schemas/Lid'
+        $ref: './Lid.avsc#/schemas/Lid'
       verzondenOp:
         type: object
         $ref: './VerzondenOp.yaml#/schemas/VerzondenOp'
