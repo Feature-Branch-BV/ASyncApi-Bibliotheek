@@ -7,9 +7,9 @@ schemas:
         type: string
         format: uuid
         description: 'Unieke identificatie van het lid te verwijderen.'
-      sentAt:
+      verzondenOp:
         type: object
-        $ref: './SentAt.yaml#/schemas/SentAt'
+        $ref: './VerzondenOp.yaml#/schemas/VerzondenOp'
     required:
       - id
-      - sentAt
+      - verzondenOp

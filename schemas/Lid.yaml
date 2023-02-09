@@ -1,0 +1,33 @@
+schemas:
+  Lid:
+    type: object
+    $id: Lid
+    properties:
+      id:
+        type: string
+        format: uuid
+        description: 'Unieke identificatie van het lid te registreren'
+      naam:
+        type: string
+        description: 'De naam van het lid'
+      email:
+        type: string
+        format: email
+        description: 'Email adres van het lid'
+      telefoonnummer:
+        type: string
+        description: 'Telefoonnummer van het lid'
+      adres:
+        type: string
+        description: Adres van het lid
+      geboortedatum:
+        type: string
+        format: date
+        description: 'Geboortedatum van het lid'
+    required:
+      - id
+      - naam
+      - email
+      - telefoonnummer
+      - adres
+      - geboortedatum

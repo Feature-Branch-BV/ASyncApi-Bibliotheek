@@ -1,11 +1,11 @@
 schemas:
-  SentAt:
+  VerzondenOp:
     type: object
-    $id: SentAt
+    $id: VerzondenOp
     properties:
-      sentAt:
+       verzondenOp:
         type: string
         format: date-time
         description: Datum en tijd dat bericht gestuurd is.
     required:
-      - sentAt
+      - verzondenOp

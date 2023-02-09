@@ -3,35 +3,12 @@ schemas:
     type: object
     $id: LidGewijzigdPayload
     properties:
-      id:
-        type: string
-        format: uuid
-        description: 'Unieke identificatie van het lid te registreren'
-      naam:
-        type: string
-        description: 'De naam van het lid'
-      email:
-        type: string
-        format: email
-        description: 'Email adres van het lid'
-      telefoonnummer:
-        type: string
-        description: 'Telefoonnummer van het lid'
-      adres:
-        type: string
-        description: Adres van het lid
-      geboortedatum:
-        type: string
-        format: date
-        description: 'Geboortedatum van het lid'
-      sentAt:
+      lid:
         type: object
-        $ref: './SentAt.yaml#/schemas/SentAt'
+        $ref: './Lid.yaml#/schemas/Lid'
+      verzondenOp:
+        type: object
+        $ref: './VerzondenOp.yaml#/schemas/VerzondenOp'
     required:
-      - id
-      - naam
-      - email
-      - telefoonnummer
-      - adres
-      - geboortedatum
-      - sentAt
+      - lid
+      - verzondenOp
