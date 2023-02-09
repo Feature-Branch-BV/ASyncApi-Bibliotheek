@@ -8,7 +8,7 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0
 
 servers:
-  local:
+  local-kafka:
     url: kafka://localhost:9093
     protocol: kafka
 
@@ -25,11 +25,14 @@ channels:
           - $ref: '#/components/messages/lidAangemeld'
           - $ref: '#/components/messages/lidGewijzigd'
           - $ref: '#/components/messages/lidVerwijderd'
-#    subscribe:
-#      operationId: lidGewijzigd
-#      message:
-#        $ref: '#/components/messages/lidGewijzigd'
-#
+
+# Voorbeeld van subscribe actie, de generator voegt automatisch een bericht toe die hij op de
+# kafka-bus plaatst in de application.java
+    subscribe:
+      operationId: lidGewijzigd
+      message:
+        $ref: '#/components/messages/lidGewijzigdSubscribe'
+
 components:
   messages:
     lidAangemeld:
@@ -41,6 +44,12 @@ components:
     lidGewijzigd:
       messageId: "LidGewijzigd"
       summary: Informeer over het gewijzigde lid
+      payload:
+        $ref: './schemas/LidGewijzigdPayload.yaml#/schemas/LidGewijzigdPayload'
+
+    lidGewijzigdSubscribe:
+      messageId: "LidGewijzigdSubscribe"
+      summary: Ontvangen bericht over het gewijzigde lid
       payload:
         $ref: './schemas/LidGewijzigdPayload.yaml#/schemas/LidGewijzigdPayload'
 
