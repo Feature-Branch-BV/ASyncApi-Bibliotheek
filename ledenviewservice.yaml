@@ -31,26 +31,29 @@ components:
       summary: Informeer over het lid dat is aangemeld
       schemaFormat: application/vnd.aai.asyncapi+yaml;version=2.4.0
       payload:
-        $ref: './schemas/LidAangemeldPayload.yaml#/schemas/LidAangemeldPayload'
+        $ref: 'https://raw.githubusercontent.com/Feature-Branch-BV/ASyncApi-Bibliotheek-Schemas/develop/models/Lid.avsc'
 
     lidGewijzigd:
       summary: Informeer over het gewijzigde lid
       schemaFormat: application/vnd.aai.asyncapi+yaml;version=2.4.0
       payload:
-        $ref: './schemas/LidGewijzigdPayload.yaml#/schemas/LidGewijzigdPayload'
+        $ref: 'https://raw.githubusercontent.com/Feature-Branch-BV/ASyncApi-Bibliotheek-Schemas/develop/models/Lid.avsc'
 
     lidVerwijderd:
+      messageId: "LidVerwijderd"
       summary: Informeer over welk lid verwijderd is
-      schemaFormat: application/vnd.aai.asyncapi+yaml;version=2.4.0
+      schemaFormat: application/schema+json;version=draft-07
       payload:
-        $ref: './schemas/LidVerwijderdPayload.yaml#/schemas/LidVerwijderdPayload'
-
-  # Met de huidige versie van de async-generator moet je het schema's element hebben anders
-  # snapt hij niet dat hij type-bindings moet toevoegen in de config.
-  schemas:
-    lidAangemeld:
-      $ref: './schemas/LidAangemeldPayload.yaml#/schemas/LidAangemeldPayload'
-    lidGewijzigd:
-      $ref: './schemas/LidGewijzigdPayload.yaml#/schemas/LidGewijzigdPayload'
-    lidVerwijderd:
-      $ref: './schemas/LidVerwijderdPayload.yaml#/schemas/LidVerwijderdPayload'
+        type: object
+        $id: LidVerwijderdPayload
+        properties:
+          id:
+            type: string
+            format: uuid
+            description: 'Unieke identificatie van het lid te verwijderen.'
+          verzondenOp:
+            type: object
+            $ref: 'https://raw.githubusercontent.com/Feature-Branch-BV/ASyncApi-Bibliotheek-Schemas/develop/models/VerzondenOp.json'
+        required:
+          - id
+          - verzondenOp

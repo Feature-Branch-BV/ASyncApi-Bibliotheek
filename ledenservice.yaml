@@ -26,8 +26,8 @@ channels:
           - $ref: '#/components/messages/lidGewijzigd'
           - $ref: '#/components/messages/lidVerwijderd'
 
-# Voorbeeld van subscribe actie, de generator voegt automatisch een bericht toe die hij op de
-# kafka-bus plaatst in de application.java
+    # Voorbeeld van subscribe actie, de generator voegt automatisch een bericht toe die hij op de
+    # kafka-bus plaatst in de application.java
     subscribe:
       operationId: lidGewijzigd
       message:
@@ -41,25 +41,26 @@ components:
       summary: Informeer over het lid dat is aangemeld
       schemaFormat: "application/vnd.apache.avro+json;version=1.9.0"
       payload:
-        $ref: 'https://raw.githubusercontent.com/Feature-Branch-BV/ASyncApi-Bibliotheek-Schemas/develop/Lid.avsc'
+        $ref: 'https://raw.githubusercontent.com/Feature-Branch-BV/ASyncApi-Bibliotheek-Schemas/develop/models/Lid.avsc'
 
     lidGewijzigd:
       messageId: "LidGewijzigd"
       summary: Informeer over het gewijzigde lid
       schemaFormat: "application/vnd.apache.avro+json;version=1.9.0"
       payload:
-        $ref: 'https://raw.githubusercontent.com/Feature-Branch-BV/ASyncApi-Bibliotheek-Schemas/develop/Lid.avsc'
+        $ref: 'https://raw.githubusercontent.com/Feature-Branch-BV/ASyncApi-Bibliotheek-Schemas/develop/models/Lid.avsc'
 
     lidGewijzigdSubscribe:
       messageId: "LidGewijzigdSubscribe"
       summary: Ontvangen bericht over het gewijzigde lid
       schemaFormat: "application/vnd.apache.avro+json;version=1.9.0"
       payload:
-        $ref: 'https://raw.githubusercontent.com/Feature-Branch-BV/ASyncApi-Bibliotheek-Schemas/develop/Lid.avsc'
+        $ref: 'https://raw.githubusercontent.com/Feature-Branch-BV/ASyncApi-Bibliotheek-Schemas/develop/models/Lid.avsc'
 
     lidVerwijderd:
       messageId: "LidVerwijderd"
       summary: Informeer over welk lid verwijderd is
+      schemaFormat: application/schema+json;version=draft-07
       payload:
         type: object
         $id: LidVerwijderdPayload
@@ -70,28 +71,7 @@ components:
             description: 'Unieke identificatie van het lid te verwijderen.'
           verzondenOp:
             type: object
-            $ref: './schemas/VerzondenOp.yaml#/schemas/VerzondenOp'
+            $ref: 'https://raw.githubusercontent.com/Feature-Branch-BV/ASyncApi-Bibliotheek-Schemas/develop/models/VerzondenOp.json'
         required:
           - id
           - verzondenOp
-
-# Met de huidige versie van de async-generator moet je het schema's element hebben anders
-# snapt hij niet dat hij type-bindings moet toevoegen in de config.
-#  schemas:
-#    lidAangemeld:
-#      type: object
-#      $id: 'LidAangemeld'
-#      properties:
-#        lid:
-#          type: string
-#          $ref: './schemas/Lid.avsc'
-#        verzondenOp:
-#          type: object
-#          $ref: './VerzondenOp.yaml#/schemas/VerzondenOp'
-#      required:
-#        - lid
-#        - verzondenOp
-#    lidGewijzigd:
-#      $ref: './schemas/LidGewijzigdPayload.yaml#/schemas/LidGewijzigdPayload'
-#    lidVerwijderd:
-#      $ref: './schemas/LidVerwijderdPayload.yaml#/schemas/LidVerwijderdPayload'
