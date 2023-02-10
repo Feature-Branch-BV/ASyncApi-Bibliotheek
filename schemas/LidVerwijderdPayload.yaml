@@ -1,0 +1,15 @@
+schemas:
+  LidVerwijderdPayload:
+    type: object
+    $id: LidVerwijderdPayload
+    properties:
+      id:
+        type: string
+        format: uuid
+        description: 'Unieke identificatie van het lid te verwijderen.'
+      verzondenOp:
+        type: object
+        $ref: './VerzondenOp.yaml#/schemas/VerzondenOp'
+    required:
+      - id
+      - verzondenOp
