@@ -11,4 +11,4 @@ POC Om met behulp van AsyncAPI een bibliotheek op te kunnen zetten aanvullend me
 
 **Leden View Service**
 
-```ag -o ./ledenviewservice ledenviewservice.yaml -p listenerPollTimeout=5000 -p inverseOperations=true -p javaPackage=nl.ind.gebeurtenissturingpoc.ledenviewservice @asyncapi/java-spring-template --force-write```
+```ag -o ./ledenviewservice ledenviewservice.yaml -p listenerPollTimeout=5000 -p javaPackage=nl.ind.gebeurtenissturingpoc.ledenviewservice @asyncapi/java-spring-template --force-write```

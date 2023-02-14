@@ -14,7 +14,7 @@ servers:
 
 channels:
   event.leden:
-    subscribe:
+    publish:
       bindings:
         kafka:
           groupId: ledenviewservice
@@ -25,8 +25,23 @@ channels:
           - $ref: '#/components/messages/lidGewijzigd'
           - $ref: '#/components/messages/lidVerwijderd'
 
+  event.lid_gewijzigd:
+    publish:
+      bindings:
+        kafka:
+          groupId: ledenviewservice
+      operationId: lid_gewijzigd
+      message:
+        $ref: '#/components/messages/LidGewijzigdMessage'
+
 components:
   messages:
+    LidGewijzigdMessage:
+      messageId: "LidGewijzigdMessage"
+      summary: Ontvangen bericht over het gewijzigde lid
+      payload:
+        $ref: '#/components/schemas/LidGewijzigdSchema'
+
     lidAangemeld:
       summary: Informeer over het lid dat is aangemeld
       schemaFormat: application/vnd.aai.asyncapi+yaml;version=2.4.0
@@ -45,9 +60,23 @@ components:
       payload:
         $ref: './schemas/LidVerwijderdPayload.yaml#/schemas/LidVerwijderdPayload'
 
-  # Met de huidige versie van de async-generator moet je het schema's element hebben anders
-  # snapt hij niet dat hij type-bindings moet toevoegen in de config.
+#   Met de huidige versie van de async-generator moet je het schema's element hebben anders
+#   snapt hij niet dat hij type-bindings moet toevoegen in de config.
   schemas:
+    LidGewijzigdSchema:
+      type: object
+      $id: LidGewijzigdPayload
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: "Id van lid"
+        naam:
+          type: string
+          description: "Naam van het lid"
+          examples:
+            - "Herman"
+            -
     lidAangemeld:
       $ref: './schemas/LidAangemeldPayload.yaml#/schemas/LidAangemeldPayload'
     lidGewijzigd:

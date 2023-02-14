@@ -1,6 +1,6 @@
 asyncapi: 2.4.0
 info:
-  title: Leden Service
+  title: Rapportage Service
   version: '1.0.0'
   description: "Service voor het registreren, wijzigen en verwijderen van leden."
   license:
@@ -14,7 +14,7 @@ servers:
 
 channels:
   event.leden:
-    publish:
+    subscribe:
       bindings:
         kafka:
           groupId: ledenservice
@@ -22,49 +22,37 @@ channels:
       summary: 'Kanaal waarop de berichten m.b.t. de leden worden verstuurd.'
       message:
         oneOf:
-          - $ref: '#/components/messages/lidAangemeld'
-          - $ref: '#/components/messages/lidGewijzigd'
-          - $ref: '#/components/messages/lidVerwijderd'
+          - $ref: 'https://raw.githubusercontent.com/Feature-Branch-BV/ASyncApi-Bibliotheek-Schemas/develop-demo/async-api-specs/gebeurtenissen/LidAangemeld.yaml#/components/messages/LidAangemeld'
+          - $ref: 'https://raw.githubusercontent.com/Feature-Branch-BV/ASyncApi-Bibliotheek-Schemas/develop-demo/async-api-specs/gebeurtenissen/LidGewijzigd.yaml#/components/messages/LidGewijzigd'
+          - $ref: 'https://raw.githubusercontent.com/Feature-Branch-BV/ASyncApi-Bibliotheek-Schemas/develop-demo/async-api-specs/gebeurtenissen/LidVerwijderd.yaml#/components/messages/LidVerwijderd'
 
 # Voorbeeld van subscribe actie, de generator voegt automatisch een bericht toe die hij op de
 # kafka-bus plaatst in de application.java
+  event.lid_gewijzigd:
     subscribe:
-      operationId: lidGewijzigd
+      operationId: lid_gewijzigd
       message:
-        $ref: '#/components/messages/lidGewijzigdSubscribe'
+        $ref: '#/components/messages/LidGewijzigdMessage'
 
 components:
   messages:
-    lidAangemeld:
-      messageId: "LidAangemeld"
-      summary: Informeer over het lid dat is aangemeld
-      payload:
-        $ref: './schemas/LidAangemeldPayload.yaml#/schemas/LidAangemeldPayload'
-
-    lidGewijzigd:
-      messageId: "LidGewijzigd"
-      summary: Informeer over het gewijzigde lid
-      payload:
-        $ref: './schemas/LidGewijzigdPayload.yaml#/schemas/LidGewijzigdPayload'
-
-    lidGewijzigdSubscribe:
-      messageId: "LidGewijzigdSubscribe"
+    LidGewijzigdMessage:
+      messageId: "LidGewijzigdMessage"
       summary: Ontvangen bericht over het gewijzigde lid
       payload:
-        $ref: './schemas/LidGewijzigdPayload.yaml#/schemas/LidGewijzigdPayload'
+        $ref: '#/components/schemas/LidGewijzigdSchema'
 
-    lidVerwijderd:
-      messageId: "LidVerwijderd"
-      summary: Informeer over welk lid verwijderd is
-      payload:
-        $ref: './schemas/LidVerwijderdPayload.yaml#/schemas/LidVerwijderdPayload'
-
-# Met de huidige versie van de async-generator moet je het schema's element hebben anders
-# snapt hij niet dat hij type-bindings moet toevoegen in de config.
   schemas:
-    lidAangemeld:
-      $ref: './schemas/LidAangemeldPayload.yaml#/schemas/LidAangemeldPayload'
-    lidGewijzigd:
-      $ref: './schemas/LidGewijzigdPayload.yaml#/schemas/LidGewijzigdPayload'
-    lidVerwijderd:
-      $ref: './schemas/LidVerwijderdPayload.yaml#/schemas/LidVerwijderdPayload'
+    LidGewijzigdSchema:
+      type: object
+      $id: LidGewijzigdPayload
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: "Id van lid"
+        naam:
+          type: string
+          description: "Naam van het lid"
+          examples:
+            - "Herman"
