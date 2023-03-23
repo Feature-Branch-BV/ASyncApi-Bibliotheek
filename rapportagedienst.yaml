@@ -1,0 +1,119 @@
+{
+  "asyncapi" : "2.4.0",
+  "info" : {
+    "title" : "Rapportagedienst",
+    "version" : "3",
+    "description" : "Service voor de weergave van bibliotheekgerelateerde zaken.",
+    "contact" : {
+      "name" : "Rapportageservice Support",
+      "url" : "http://voorbeeldigeorganisatie.nl.nl",
+      "email" : "voorbeeld@voorbeeldigeorganisatie.nl",
+      "x-project-name" : "POC Gebeurtenissturing"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "https://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "servers" : {
+    "local" : {
+      "url" : "kafka://localhost:9093",
+      "protocol" : "kafka"
+    }
+  },
+  "defaultContentType" : "avro/binary",
+  "tags" : [ ],
+  "channels" : {
+    "ledendienst.1.0.event.lid.aangemeld" : {
+      "publish" : {
+        "bindings" : {
+          "kafka" : {
+            "groupId" : "rapportagedienst"
+          }
+        },
+        "operationId" : "lidaangemeld",
+        "message" : {
+          "$ref" : "http://192.168.1.230:8080/apis/registry/v2/groups/bibliotheek-gebeurtenissen/artifacts/lidaangemeld/versions/18#/components/messages/LidAangemeld"
+        }
+      }
+    },
+    "ledendienst.1.0.event.lid.gewijzigd" : {
+      "publish" : {
+        "bindings" : {
+          "kafka" : {
+            "groupId" : "rapportagedienst"
+          }
+        },
+        "operationId" : "lidgewijzigd",
+        "message" : {
+          "$ref" : "http://192.168.1.230:8080/apis/registry/v2/groups/bibliotheek-gebeurtenissen/artifacts/lidgewijzigd/versions/3#/components/messages/LidGewijzigd"
+        }
+      }
+    },
+    "ledendienst.1.0.event.lid.verwijderd" : {
+      "publish" : {
+        "bindings" : {
+          "kafka" : {
+            "groupId" : "rapportagedienst"
+          }
+        },
+        "operationId" : "lidverwijderd",
+        "message" : {
+          "$ref" : "http://192.168.1.230:8080/apis/registry/v2/groups/bibliotheek-gebeurtenissen/artifacts/lidverwijderd/versions/15#/components/messages/LidVerwijderd"
+        }
+      }
+    },
+    "uitleendienst.1.0.event.boek.aangekocht" : {
+      "subscribe" : {
+        "bindings" : {
+          "kafka" : {
+            "groupId" : "uitleendienst"
+          }
+        },
+        "operationId" : "boekAangekocht",
+        "message" : {
+          "$ref" : "http://192.168.1.230:8080/apis/registry/v2/groups/bibliotheek-gebeurtenissen/artifacts/boekaangekocht/versions/1#/components/messages/BoekAangekocht"
+        }
+      }
+    },
+    "uitleendienst.1.0.event.boek.uitgeleend" : {
+      "publish" : {
+        "bindings" : {
+          "kafka" : {
+            "groupId" : "uitleendienst"
+          }
+        },
+        "operationId" : "boekUitgeleend",
+        "message" : {
+          "$ref" : "http://192.168.1.230:8080/apis/registry/v2/groups/bibliotheek-gebeurtenissen/artifacts/boekuitgeleend/versions/2#/components/messages/BoekUitgeleend"
+        }
+      }
+    },
+    "uitleendienst.1.0.event.boek.teruggebracht" : {
+      "publish" : {
+        "bindings" : {
+          "kafka" : {
+            "groupId" : "uitleendienst"
+          }
+        },
+        "operationId" : "boekTeruggebracht",
+        "message" : {
+          "$ref" : "http://192.168.1.230:8080/apis/registry/v2/groups/bibliotheek-gebeurtenissen/artifacts/boekteruggebracht/versions/2#/components/messages/BoekTeruggebracht"
+        }
+      }
+    },
+    "uitleendienst.1.0.event.boek.verwijderd" : {
+      "publish" : {
+        "bindings" : {
+          "kafka" : {
+            "groupId" : "uitleendienst"
+          }
+        },
+        "operationId" : "boekVerwijderd",
+        "message" : {
+          "$ref" : "http://192.168.1.230:8080/apis/registry/v2/groups/bibliotheek-gebeurtenissen/artifacts/boekverwijderd/versions/2#/components/messages/BoekVerwijderd"
+        }
+      }
+    }
+  }
+}

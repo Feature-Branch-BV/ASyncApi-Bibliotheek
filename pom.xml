@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>nl.example.dit</groupId>
+    <artifactId>asyncapi-bibliotheek</artifactId>
+    <version>1</version>
+
+    <properties>
+
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.apicurio</groupId>
+                <artifactId>apicurio-registry-maven-plugin</artifactId>
+                <version>2.4.1.Final</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>download</goal>
+                        </goals>
+                        <configuration>
+                            <registryUrl>http://192.168.1.230:8080/apis/registry/v2</registryUrl>
+                            <authServerUrl>http://192.168.1.230:8090</authServerUrl>
+                            <!--                            <clientId>MY-CLIENT-ID</clientId>-->
+                            <!--                            <clientSecret>MY-CLIENT-SECRET</clientSecret>-->
+                            <artifacts>
+                                <artifact>
+                                    <groupId>bibliotheek-dienst</groupId>
+                                    <artifactId>ledendienst</artifactId>
+                                    <version>11</version>
+                                    <file>ledendienst.yaml</file>
+                                    <overwrite>true</overwrite>
+                                </artifact>
+                                <artifact>
+                                    <groupId>bibliotheek-dienst</groupId>
+                                    <artifactId>rapportagedienst</artifactId>
+                                    <version>3</version>
+                                    <file>rapportagedienst.yaml</file>
+                                    <overwrite>true</overwrite>
+                                </artifact>
+                                <artifact>
+                                    <groupId>bibliotheek-dienst</groupId>
+                                    <artifactId>uitleendienst</artifactId>
+                                    <version>6</version>
+                                    <file>uitleendienst.yaml</file>
+                                    <overwrite>true</overwrite>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <target>
+                                <exec
+                                        dir="${project.basedir}"
+                                        executable="${project.basedir}/parse-asyncapi.sh"
+                                        failonerror="true">
+                                    <arg line="ledendienst rapportagedienst uitleendienst"/>
+                                </exec>
+                                <exec
+                                        dir="${project.basedir}"
+                                        executable="${project.basedir}/build-code.sh"
+                                        failonerror="true">
+<!--                                <arg line="ledendienst rapportagedienst"/>-->
+                                </exec>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
